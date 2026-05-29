@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Consent or Pay — Subscriber login</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>Subscriber login <span class="case">Login flow</span></h1>
+  <p class="sub">Target of the Wall's <strong>Login</strong> link (<code>loginLink = /login.html</code>). Simulates an existing subscriber signing in.</p>
+
+  <nav>
+    <strong>Test pages:</strong>
+    <a href="index.html">Home · Wall</a>
+    <a href="article/index.html">Article · Wall</a>
+    <a href="login.html">Login flow</a>
+    <a href="subscribed/index.html">Subscribed · excluded</a>
+  </nav>
+
+  <div class="card">
+    <h2>Mock login</h2>
+    <p class="note">
+      Add <code>/login</code> to <strong>excludedPages</strong> in the Admin UI so the Wall does not cover this form.
+      On submit the user is redirected to <code>/subscribed</code> (a subscriber/logged-in destination).
+    </p>
+    <form class="login-form" id="login-form">
+      <input type="email" id="email" placeholder="email@example.com" value="subscriber@example.com" required>
+      <input type="password" id="password" placeholder="password" value="test" required>
+      <button type="submit">Log in</button>
+    </form>
+  </div>
+
+  <div class="card">
+    <h2>Expected result</h2>
+    <div class="expect">
+      <div class="fix"><strong>✅ Pass</strong><br>Login redirects to <code>/subscribed</code>, where the Wall does not appear.</div>
+      <div class="bug"><strong>❌ Fail</strong><br>Wall blocks the login form, or <code>/subscribed</code> still shows the Wall after login.</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Automated checks</h2>
+    <div class="toolbar" id="toolbar"></div>
+  </div>
+  <div class="card">
+    <h2>Log</h2>
+    <div id="result">Waiting for CMP to load…</div>
+  </div>
+
+  <script>
+    window.UC_TEST_CASE = { name: 'Login page (should be excluded)', expectWall: false, expectCmp: false };
+    document.getElementById('login-form').addEventListener('submit', function (e) {
+      e.preventDefault();
+      // Simulate a successful login → land on the excluded "subscribed" destination.
+      location.href = 'subscribed/index.html';
+    });
+  </script>
+  <script src="cmp-test-kit.js"></script>
+  <script>
+    ucRenderToolbar('#toolbar', '#result');
+  </script>
+</body>
+</html>

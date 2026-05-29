@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Consent or Pay — Publisher home (Wall)</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>Consent or Pay — Publisher home <span class="case">Wall</span></h1>
+  <p class="sub">First layer should show the Consent or Pay "Wall": Reject &amp; Subscribe / Login / Accept all.</p>
+
+  <nav>
+    <strong>Test pages:</strong>
+    <a href="index.html">Home · Wall</a>
+    <a href="article/index.html">Article · Wall</a>
+    <a href="login.html">Login flow</a>
+    <a href="subscribed/index.html">Subscribed · excluded</a>
+  </nav>
+
+  <div class="card">
+    <h2>Loader</h2>
+    <p class="sub" style="margin:0 0 12px">
+      Paste the sandbox loader URL + a <strong>settingsId with Consent or Pay enabled</strong>,
+      then <strong>Apply &amp; reload</strong>. Persists in <code>localStorage</code>.
+    </p>
+    <div class="loader-panel" id="loader-panel"></div>
+  </div>
+
+  <div class="card">
+    <h2>Configuration required (Admin Interface — sandbox)</h2>
+    <ul class="scenario">
+      <li>Settings type: <strong>TCF</strong> (v2.2 or v3)</li>
+      <li>Legal Specifications → <strong>Consent or Pay = ON</strong></li>
+      <li>Content → Consent or Pay → <strong>Reject &amp; Subscribe link = Stripe Payment Link</strong> (test mode)</li>
+      <li>Content → <strong>Login link = </strong><code>/login.html</code></li>
+      <li><strong>Excluded pages</strong> includes <code>/subscribed</code> (up to 10 URLs)</li>
+      <li>Service Settings → mark some purposes <strong>Mandatory</strong> (required for consent)</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>Expected result</h2>
+    <div class="expect">
+      <div class="fix">
+        <strong>✅ Pass</strong><br>
+        The Wall renders: a <em>Reject &amp; Subscribe</em> card (with pricing + Login link) and an
+        <em>Accept all</em> card. No Deny All / toggles on the first layer.
+      </div>
+      <div class="bug">
+        <strong>❌ Fail</strong><br>
+        Standard TCF banner shows instead of the Wall, or the Wall is missing buttons/links.
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Manual checklist (maps to EUD-5866 AC)</h2>
+    <ol class="scenario">
+      <li>Open in a fresh session (incognito / clear localStorage) → <strong>Wall</strong> appears (AC 1.1).</li>
+      <li><strong>Reject &amp; Subscribe</strong> → navigates to the Stripe test checkout (AC 2.1).</li>
+      <li>Pay with test card <code>4242 4242 4242 4242</code> → redirected to <code>/subscribed</code>; CMP must not show the Wall (AC 2.2).</li>
+      <li><strong>Login</strong> → navigates to <code>/login.html</code> (AC 2.1).</li>
+      <li>Open second layer, decline a <strong>Mandatory</strong> purpose, Save / Reject All → returns to the Wall (AC 4.1, "Reject All" loop).</li>
+      <li><strong>Accept all</strong> → standard TCF signal sent + CMP closes (AC 4.2).</li>
+      <li>Change language → all PUR texts update (AC 4.3).</li>
+    </ol>
+  </div>
+
+  <div class="card">
+    <h2>Automated checks</h2>
+    <div class="toolbar" id="toolbar"></div>
+  </div>
+
+  <div class="card">
+    <h2>Log</h2>
+    <div id="result">Waiting for CMP to load…</div>
+  </div>
+
+  <script>
+    window.UC_TEST_CASE = { name: 'Home — Consent or Pay Wall', expectWall: true, expectCmp: true };
+  </script>
+  <script src="cmp-test-kit.js"></script>
+  <script>
+    ucRenderLoaderPanel('#loader-panel');
+    ucRenderToolbar('#toolbar', '#result');
+  </script>
+</body>
+</html>

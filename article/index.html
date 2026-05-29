@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Consent or Pay — Article (Wall on a non-excluded page)</title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <h1>Consent or Pay — Article <span class="case">Wall</span></h1>
+  <p class="sub">A second content page (path <code>/article</code>). It is NOT in excludedPages, so the Wall must still appear.</p>
+
+  <nav>
+    <strong>Test pages:</strong>
+    <a href="../index.html">Home · Wall</a>
+    <a href="index.html">Article · Wall</a>
+    <a href="../login.html">Login flow</a>
+    <a href="../subscribed/index.html">Subscribed · excluded</a>
+  </nav>
+
+  <div class="card">
+    <h2>Loader</h2>
+    <div class="loader-panel" id="loader-panel"></div>
+  </div>
+
+  <article class="card article">
+    <h3>Sample article</h3>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. This page exists to verify the Wall
+       gates content on every non-excluded path, not just the home page.</p>
+  </article>
+
+  <div class="card">
+    <h2>Expected result</h2>
+    <div class="expect">
+      <div class="fix"><strong>✅ Pass</strong><br>The Wall appears here too (path not excluded).</div>
+      <div class="bug"><strong>❌ Fail</strong><br>No Wall, or the article is readable without any consent decision.</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Automated checks</h2>
+    <div class="toolbar" id="toolbar"></div>
+  </div>
+  <div class="card">
+    <h2>Log</h2>
+    <div id="result">Waiting for CMP to load…</div>
+  </div>
+
+  <script>
+    window.UC_TEST_CASE = { name: 'Article — Wall (non-excluded path)', expectWall: true, expectCmp: true };
+  </script>
+  <script src="../cmp-test-kit.js"></script>
+  <script>
+    ucRenderLoaderPanel('#loader-panel');
+    ucRenderToolbar('#toolbar', '#result');
+  </script>
+</body>
+</html>

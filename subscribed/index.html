@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Consent or Pay — Subscribed (excluded page)</title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <h1>Subscribed area <span class="case excluded">Excluded page</span></h1>
+  <p class="sub">Destination after a successful subscription or login. Path <code>/subscribed</code> is in <strong>excludedPages</strong> — the Wall must NOT render here.</p>
+
+  <nav>
+    <strong>Test pages:</strong>
+    <a href="../index.html">Home · Wall</a>
+    <a href="../article/index.html">Article · Wall</a>
+    <a href="../login.html">Login flow</a>
+    <a href="index.html">Subscribed · excluded</a>
+  </nav>
+
+  <div class="card">
+    <p class="badge-ok">✓ You have access — no consent wall</p>
+    <p class="article" style="margin-top:12px">Premium content is readable. The subscriber paid (or logged in), so the
+       Consent or Pay wall is suppressed via <code>excludedPages</code>.</p>
+  </div>
+
+  <div class="card">
+    <h2>Expected result</h2>
+    <div class="expect">
+      <div class="fix">
+        <strong>✅ Pass</strong><br>
+        No Consent or Pay <em>Wall</em> on this page (path excluded).
+      </div>
+      <div class="bug">
+        <strong>❌ Fail</strong><br>
+        The Wall still gates this page — <code>excludedPages</code> did not match <code>/subscribed</code>.
+      </div>
+    </div>
+    <p class="note" style="margin-top:12px">
+      Implementation note: <code>excludedPages</code> suppresses only the <strong>Wall</strong>. Per current code the
+      CMP may still fall back to the standard TCF banner here. If product requires the CMP to be fully hidden for
+      subscribers, raise it as a finding against EUD-5866.
+    </p>
+  </div>
+
+  <div class="card">
+    <h2>Automated checks</h2>
+    <div class="toolbar" id="toolbar"></div>
+  </div>
+  <div class="card">
+    <h2>Log</h2>
+    <div id="result">Waiting for CMP to load…</div>
+  </div>
+
+  <script>
+    window.UC_TEST_CASE = { name: 'Subscribed — excluded page', expectWall: false, expectCmp: false };
+  </script>
+  <script src="../cmp-test-kit.js"></script>
+  <script>
+    ucRenderToolbar('#toolbar', '#result');
+  </script>
+</body>
+</html>

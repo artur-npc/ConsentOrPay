@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Consent or Pay — Payment return</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>Payment processed <span class="case payment">Stripe return</span></h1>
+  <p class="sub">
+    Optional Stripe "after payment" redirect target. Stripe Payment Links can redirect here with
+    <code>?session_id={CHECKOUT_SESSION_ID}</code>; this page confirms and forwards to <code>/subscribed</code>.
+  </p>
+
+  <div class="card">
+    <p class="badge-ok" id="status">Confirming payment…</p>
+    <p class="article" style="margin-top:12px">
+      Continue to your <a href="subscribed/index.html">subscribed area</a> if you are not redirected automatically.
+    </p>
+  </div>
+
+  <div class="card">
+    <h2>How to wire this up</h2>
+    <ul class="scenario">
+      <li>In Stripe (test mode) → Payment Link → <strong>After payment → Redirect</strong> to this page's public URL.</li>
+      <li><strong>localhost caveat:</strong> Stripe redirects need a public URL — use a tunnel (<code>ngrok</code>) or deploy the pages.
+          For a quick local check, set the Payment Link to <em>show the confirmation page</em> and click the
+          link above manually.</li>
+    </ul>
+  </div>
+
+  <script>
+    var params = new URLSearchParams(location.search);
+    var sid = params.get('session_id');
+    var el = document.getElementById('status');
+    el.textContent = sid ? ('✓ Payment confirmed (session ' + sid.slice(0, 12) + '…). Redirecting…')
+                         : '✓ Payment confirmed. Redirecting…';
+    setTimeout(function () { location.href = 'subscribed/index.html'; }, 1500);
+  </script>
+</body>
+</html>

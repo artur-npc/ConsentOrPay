@@ -1,0 +1,46 @@
+body { font-family: -apple-system, Segoe UI, Roboto, sans-serif; padding: 24px; max-width: 920px; margin: 0 auto; background: #fafafa; color: #1a1a1a; }
+h1 { font-size: 20px; margin-bottom: 4px; }
+.sub { color: #666; font-size: 13px; margin-bottom: 20px; }
+.case { display: inline-block; background: #1e3a8a; color: #fff; font-size: 11px; padding: 2px 8px; border-radius: 10px; text-transform: uppercase; letter-spacing: .04em; }
+.case.excluded { background: #2e7d32; }
+.case.payment { background: #6a1b9a; }
+.card { background: #fff; border: 1px solid #ddd; border-radius: 8px; padding: 16px 18px; margin-bottom: 16px; }
+.card h2 { font-size: 14px; text-transform: uppercase; color: #555; margin: 0 0 10px; letter-spacing: .04em; }
+.note { background: #fff8e1; border-left: 4px solid #f9a825; padding: 10px 14px; font-size: 13px; border-radius: 4px; }
+.scenario li { margin: 5px 0; font-size: 14px; }
+code { background: #f0f0f0; padding: 1px 5px; border-radius: 3px; font-size: 12px; }
+.toolbar { display: flex; flex-wrap: wrap; gap: 8px; }
+button { padding: 8px 14px; cursor: pointer; font-size: 13px; border: 1px solid #bbb; border-radius: 5px; background: #fff; }
+button:hover { background: #f2f2f2; }
+#result { background: #1e1e1e; color: #e0e0e0; padding: 14px; border-radius: 6px; white-space: pre-wrap; min-height: 80px; font-size: 12px; font-family: monospace; }
+.ok { color: #6cc06c; } .fail { color: #e57373; } .warn { color: #ffb74d; }
+.expect { display: flex; gap: 16px; flex-wrap: wrap; }
+.expect > div { flex: 1; min-width: 240px; padding: 10px 12px; border-radius: 6px; font-size: 13px; }
+.expect .bug { background: #ffebee; border: 1px solid #ef9a9a; }
+.expect .fix { background: #e8f5e9; border: 1px solid #a5d6a7; }
+.privacy-link { font-size: 14px; }
+.privacy-link a { color: #1e3a8a; }
+nav { font-size: 13px; margin-bottom: 16px; }
+nav a { margin-right: 12px; color: #1e3a8a; }
+.loader-presets { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; font-size: 13px; }
+.loader-presets span { color: #555; }
+.loader-presets .preset { padding: 5px 14px; border-radius: 14px; border: 1px solid #bbb; background: #fff; }
+.loader-presets .preset.active { background: #1e3a8a; color: #fff; border-color: #1e3a8a; }
+.loader-panel label { display: block; font-size: 13px; margin-bottom: 10px; }
+.loader-panel input[type=text] { width: 100%; padding: 7px 9px; margin-top: 4px; font-family: monospace; font-size: 12px; border: 1px solid #bbb; border-radius: 4px; box-sizing: border-box; }
+.loader-panel label.cb { display: flex; align-items: center; gap: 6px; }
+.loader-panel label.cb code { margin: 0; }
+.loader-actions { display: flex; gap: 8px; margin: 4px 0 12px; }
+.loader-actions button { background: #1e3a8a; color: #fff; border-color: #1e3a8a; }
+.loader-actions button:hover { background: #16306e; }
+.loader-actions button:last-child { background: #fff; color: #1e3a8a; }
+.loader-actions button:last-child:hover { background: #f2f2f2; }
+.loader-active { font-family: monospace; font-size: 11px; color: #555; word-break: break-all; }
+
+/* Publisher content mock + login form (EUD-6171) */
+.article { line-height: 1.6; font-size: 15px; color: #333; }
+.article h3 { margin-top: 0; }
+.login-form { display: flex; flex-direction: column; gap: 12px; max-width: 320px; }
+.login-form input { padding: 8px 10px; border: 1px solid #bbb; border-radius: 5px; font-size: 14px; }
+.login-form button { background: #1e3a8a; color: #fff; border-color: #1e3a8a; }
+.badge-ok { display: inline-block; background: #e8f5e9; border: 1px solid #a5d6a7; color: #2e7d32; padding: 4px 10px; border-radius: 6px; font-size: 13px; }
