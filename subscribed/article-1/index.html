@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Consent or Pay — Subscribed nested article (excluded prefix)</title>
+  <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+  <h1>Subscribed · nested article <span class="case excluded">Excluded prefix</span></h1>
+  <p class="sub">
+    Path <code>/subscribed/article-1</code>. Verifies that a single <strong>excludedPages</strong> entry
+    <code>/subscribed</code> covers nested sub-paths via segment-boundary prefix matching — you do NOT need to
+    list every sub-page individually (the 10-URL cap is a maximum, not a requirement).
+  </p>
+
+  <nav>
+    <strong>Test pages:</strong>
+    <a href="../../index.html">Home · Wall</a>
+    <a href="../../article/index.html">Article · Wall</a>
+    <a href="../../login.html">Login flow</a>
+    <a href="../index.html">Subscribed · excluded</a>
+    <a href="index.html">Subscribed · nested</a>
+  </nav>
+
+  <div class="card">
+    <p class="badge-ok">✓ Nested subscriber page — no consent wall</p>
+    <p class="article" style="margin-top:12px">
+      This page lives one level deeper than <code>/subscribed</code>. Because <code>matchesPage()</code> matches on
+      segment boundaries, the single configured entry <code>/subscribed</code> also suppresses the Wall here.
+    </p>
+  </div>
+
+  <div class="card">
+    <h2>Expected result</h2>
+    <div class="expect">
+      <div class="fix">
+        <strong>✅ Pass</strong><br>
+        No Consent or Pay <em>Wall</em> on <code>/subscribed/article-1</code> — the parent prefix excluded it.
+      </div>
+      <div class="bug">
+        <strong>❌ Fail</strong><br>
+        The Wall gates this nested page — prefix matching is broken, or the entry was added as an exact path only.
+      </div>
+    </div>
+    <p class="note" style="margin-top:12px">
+      Same caveat as <code>/subscribed</code>: <code>excludedPages</code> suppresses only the <strong>Wall</strong>.
+      The standard TCF banner may still fall back here (gap vs EUD-5866 AC 2.2).
+    </p>
+  </div>
+
+  <div class="card">
+    <h2>Automated checks</h2>
+    <div class="toolbar" id="toolbar"></div>
+  </div>
+  <div class="card">
+    <h2>Log</h2>
+    <div id="result">Waiting for CMP to load…</div>
+  </div>
+
+  <script>
+    window.UC_TEST_CASE = { name: 'Subscribed — nested article (excluded prefix)', expectWall: false, expectCmp: false };
+  </script>
+  <script src="../../cmp-test-kit.js"></script>
+  <script>
+    ucRenderToolbar('#toolbar', '#result');
+  </script>
+</body>
+</html>
