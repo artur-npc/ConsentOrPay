@@ -22,8 +22,8 @@
 (function () {
   // Default sandbox loader. Replace DEFAULT_SETTINGS_ID with a sandbox settingsId
   // that has Consent or Pay enabled, or override it via the loader panel.
-  var DEFAULT_LOADER = 'https://web.cmp.usercentrics-sandbox.eu/ui/loader.js';
-  var DEFAULT_SETTINGS_ID = 'REPLACE_WITH_PUR_SETTINGS_ID';
+  var DEFAULT_LOADER = 'https://web.cmp.usercentrics-sandbox.eu/ui/pr/1483/loader.js';
+  var DEFAULT_SETTINGS_ID = 'E76OGo2lbtUOvH';
 
   var LS_LOADER = 'uc-test:loaderUrl';
   var LS_SETTINGS = 'uc-test:settingsId';
